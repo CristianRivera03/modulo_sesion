@@ -40,8 +40,8 @@
 
             public function desconectar(){
                 $this -> conexion = null;
+                //disconected
             }
         }
-    }
-    
+    } 
 ?>
