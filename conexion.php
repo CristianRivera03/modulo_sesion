@@ -9,19 +9,38 @@
         private $conexion;
 
         #creando constructor
-        public function __construct($host, $dbname, $usuario, $contrasena, $conexion){
+        public function __construct($host, $dbname, $usuario, $contrasena){
             $this -> host = $host;
             $this -> dbname = $dbname;
             $this -> usuario = $usuario;
             $this -> contrasena = $contrasena;
-            $this -> conexion = $conexion;
         }
 
         public function conectar(){
-            
+            try{
+                $opciones = array{
+                    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+                };
+
+                $this -> conexion = new PDO('mysql:host='.$this -> host.';dbname='.$this->dbname, $this -> usuario,$this -> contrasena,$opciones);
+                if($this -> conexion != null){
+                    //echo "imprimiria el estado de conectado"
+                }
+                else{
+                    //echo "imrpimiera el estado de desconexion"
+                }
+            } catch(PDOException $e){
+                echo "Error de conexion: ". $e -> getMessage();
+                die();
+            }
+
+            public function getConnection(){
+                return $this -> conexion;
+            }
+
+            public function desconectar(){
+                $this -> conexion = null;
+            }
         }
-
-
     }
-
 ?>
